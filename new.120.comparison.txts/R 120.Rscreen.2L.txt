@@ -5,7 +5,7 @@
 * REW Settings:
 *  C-weighting compensation: Off
 *  Target level: 75.0 dB
-* Note: ; L -12dBFS OKTO@-29dB mic - speakers 3.44m mic - front wall 4.31 MIC centered Screen panels prolong the 1.75 half wall LEFT Screen panels both close to each other Foam panels moved back into the room Delay -0.0018 ms (-0.63 mm, -0.02 in) using estimated IR delay relative to Acoustic reference played from DAC8STEREO R with no timing offset Clock adjustment: -14.7 ppm
+* Note: ; L -12dBFS OKTO@-29dB mic - speakers 3.48m mic - front wall 4.34 Screen panels prolong the 1.75 half wall LEFT Screen panels both close to each other Foam panels moved back into the room Delay -0.0018 ms (-0.63 mm, -0.02 in) using estimated IR delay relative to Acoustic reference played from DAC8STEREO R with no timing offset Clock adjustment: -14.7 ppm
 * Measurement: R 120.Rscreen.2L
 * Smoothing: None
 * Frequency Step: 0.3662109 Hz
