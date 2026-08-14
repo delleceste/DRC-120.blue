@@ -1,0 +1,7 @@
+# REW / sox scratch
+temp/
+
+# A/B copies pinned to an open-media-drc release tag.  The authoritative
+# version lives in that repo under filters/<geometry>/<rate>/, which is
+# where deployments are versioned; these are working copies only.
+*-1.5.4-*.wav
