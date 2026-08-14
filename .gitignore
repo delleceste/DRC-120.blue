@@ -1,2 +1,5 @@
 # REW / sox scratch
 temp/
+
+# provisional parking directories
+*.boh/
