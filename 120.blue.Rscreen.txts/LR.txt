@@ -6,7 +6,7 @@
 *  C-weighting compensation: Off
 *  Target level: 71.2 dB
 * Note: ; Vector average of L 120.Rscreen.orig, R 120.Rscreen.orig
-* Measurement: LR.orig
+* Measurement: LR
 * Smoothing: None
 * Frequency Step: 0.3662109 Hz
 * Start Frequency: 15.014648 Hz

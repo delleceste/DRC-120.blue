@@ -6,7 +6,7 @@
 *  C-weighting compensation: Off
 *  Target level: 75.0 dB
 * Note: ; L -12dBFS OKTO@-29dB mic - speakers 3.48m mic - front wall 4.34 MIC centered Screen panels prolong the 1.75 half wall LEFT Screen panels as traditional Foam panels moved back into the room Delay -0.0009 ms (-0.31 mm, -0.01 in) using estimated IR delay relative to Acoustic reference played from DAC8STEREO R with no timing offset Clock adjustment: -14.8 ppm
-* Measurement: R.120.Rscreen.orig
+* Measurement: R
 * Smoothing: None
 * Frequency Step: 0.3662109 Hz
 * Start Frequency: 15.014648 Hz
