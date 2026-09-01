@@ -30,26 +30,49 @@ export. They pair by name.
 
 | session | exports | what it is |
 |---|---|---|
-| `120-blue-with-inversion.mdat` (+`+2dB` variant) | `120.blue-with-inversion.txts/` | the original 120 cm inversion work. `L.120.Blue`, `R.120.Blue`, the `LX`/`RX`/`-MP`/`FLX`/`FRX` chain, `X801`, `X801 (revised)` |
-| `120.blue.Rscreen.mdat` | `120.blue.Rscreen.txts/` | the **2026-08-10 Rscreen pair** — the current build's measurements |
-| `120.blue.screens.multimeas.mdat` | `120.blue.screens.multimeas.txts/` | multi-point: centre, ±8 cm L/R, ±10 cm F/B, plus two repetitions |
-| `on-axis.61cm.mdat` | `on.axis.61cm.txts/` | near-field tweeter comparison, including the **old** tweeters and distortion sweeps |
-| `120.blue.2026.04.28.mdat`, `…+my-drc120.mdat` | — | April 2026 reference, `L+R-NO_DRC.csv` |
+| `120.blue.mdat` | `120.blue.txts/` | **the legacy inversion work — this is what is deployed.** `L.120.Blue`, `R.120.Blue`, the `LX`/`RX`/`-MP`/`FLX`/`FRX` chain, `X801 (revised)` |
+| `120.blue.Rscreen.mdat` (+`…12.cycles` variant) | `120.blue.Rscreen.txts/` | the **2026-08-10 Rscreen pair** and the `rscreen-20260812` build. Never deployed |
+| `120.blue.multi.pt.mdat` | `120.blue.multi.pt.txts/` | the **2026-08-31 five-position Harman rebuild**: `C` + ±20 cm F/B/L/R, `F.common`/`Fper_L`/`Fper_R`, `LR-SP-MP`. Never deployed |
+| `120.blue.screens.multimeas.mdat` | `120.blue.screens.multimeas.txts/` | multi-point: centre, ±8 cm L/R, ±10 cm F/B, plus two repetitions. **R arm defective** — see `NOTES.md` |
+| `120.blue.vs.2screens.front.wall.mdat` | `120.blue.vs.2screens.front.wall/` | 2026-08-28 front-wall screen A/B, `MPM.0` vs `SCREENS.FRONT.W` |
+| `on-axis.61cm.mdat` | `on.axis.61cm.txts/` | near-field tweeter comparison, including the **old** tweeters and distortion sweeps. Exports start above ~500 Hz |
 | `foam.screens.opendoor.mdat`, `meas.120.blue.2026.04.18-dac8stereo+fosiV3-mono.mdat`, `meas@120.blue.mdat` | — | treatment and chain variants |
+| `comparisons/*.mdat` | — | 2026-08-31 side-by-side of legacy / Rscreen / multi-point results |
 
 Loose CSVs at the root (`LEFT-measured.csv`, `RIGHT-measured.csv`,
 `L+R-NO_DRC.csv`, …) are Sep-2025 and Apr-2026 exports that predate the
 `.txts/` convention.
 
-### The 2026-08-14 rename
+### The renames
 
-| old | now |
-|---|---|
-| `txt/` | `120.blue-with-inversion.txts/` |
-| `new.filters.txts/` | `120.blue.Rscreen.txts/` |
+| old | now | when |
+|---|---|---|
+| `txt/` | `120.blue-with-inversion.txts/` | 2026-08-14 |
+| `new.filters.txts/` | `120.blue.Rscreen.txts/` | 2026-08-14 |
+| `120.blue-with-inversion.txts/` | **`120.blue.txts/`** | 2026-09-01 |
+| `120-blue-with-inversion.mdat` | **`120.blue.mdat`** | 2026-09-01 |
 
-Older text in `../DRC-doc` used the old names; all of it was corrected on
-2026-08-18. If you meet `txt/` anywhere, it is stale.
+If you meet `txt/`, `new.filters.txts/` or anything `…with-inversion…`
+anywhere, it is stale.
+
+**`120.blue.mdat` is not byte-identical to the session it replaces.** It was
+also *cleaned* of measurements made by other techniques, and re-exported. The
+audited original — SHA-256
+`b184b824236868a898c33877a56d0f1003a2e442922d8b4f9c05ef1a51b8d6c7`,
+57 685 240 B, the file named in `open-media-drc`'s
+`doc/FILTER_PROVENANCE_AND_RESPONSE.md` — is recoverable as
+`git show 23b1a6a:120-blue-with-inversion.mdat`. The current file hashes
+`62d534dac28abdd697223dde9187f02c78c1aa10f073cb51bfc5a6667efc953c`.
+
+Two things survived the clean unchanged, verified 2026-09-01: `FLX`, `FRX`,
+`FLX-trimmed`, `FRX-trimmed` and `X801 (revised)` re-export **numerically
+identical** to the pre-rename exports (0.00e+00 over all 65533 rows), and
+`120.blue.txts/FLX-trimmed-48k.wav` still matches the deployed `L.raw`. What
+did change for the better: the measurement and `-MP` traces were previously
+exported at **96 ppo, Psychoacoustic smoothing** (1160/1385 rows) — the
+estimator §9 of the guide forbids near an inversion — and are now unsmoothed
+full-resolution (60198/65533 rows). `X801.txt` (as distinct from
+`X801 (revised).txt`) and the `+2dB` variants are not in the new export.
 
 ## Traps
 
@@ -86,6 +109,14 @@ Older text in `../DRC-doc` used the old names; all of it was corrected on
   between machines. They are not a build.
 - **Deployments are versioned by `open-media-drc` release tags**, not by
   filenames and not by this repo. That repo answers "what was in service".
+
+> **"Current" in this repo does not mean "in service."** Verified 2026-09-01:
+> `/usr/local/etc/open-media-drc/filters/120.blue/48000/L.raw` and `R.raw` are
+> the exact float64 promotion of the int32 PCM in `FLX-trimmed-1.5.4-48k.wav`
+> and `FRX-trimmed-1.5.4-48k.wav` — bit-for-bit, all 131072 samples — i.e. the
+> **legacy `120.blue.mdat` build** (peak at sample 24002/24000). The root
+> `FLX-trimmed-48k.wav` (Rscreen) and `120.blue.multi.pt.txts/` builds are
+> uncorrelated with what runs. Neither has ever been deployed at 48 kHz.
 
 ### The design declaration
 
